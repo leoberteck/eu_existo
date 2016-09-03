@@ -1,0 +1,7 @@
+br\edu\ifsp\bri\euexisto\repository\TipoUserRepository.class
+br\edu\ifsp\bri\euexisto\domain\TipoUsuario.class
+br\edu\ifsp\bri\euexisto\domain\Usuario.class
+br\edu\ifsp\bri\euexisto\service\TipoUserService.class
+br\edu\ifsp\bri\euexisto\repository\JPAConnection.class
+br\edu\ifsp\bri\euexisto\domain\TipoUser.class
+br\edu\ifsp\bri\euexisto\domain\Status.class

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+     <body>
+        <ui:composition template="/WEB-INF/templates/template.xhtml">
+            <ui:define name="titulo">
+                Consultar Registro
+            </ui:define>
+            <ui:define name="content">
+                <h1>Cadastro de Tipo Usuário</h1>
+                <hr/>
+                <b:panel title="Consultar Tipo Usuário" look="primary">
+                    <h:form id="formIncluir" >
+                        <b:row>
+                            <b:column medium-screen="1">
+                                <h:outputLabel value="Código: "/>
+                            </b:column>
+                            <b:column medium-screen="3">
+                                <b:inputText value="#{tipoUserController.tipoUserSelecionado.codigoTpUsuario}"  label=""/>
+                            </b:column>
+                        </b:row>
+                        <b:row>
+                            <b:column medium-screen="1">
+                                <h:outputLabel value="Tipo:"/>         
+                            </b:column>
+                            <b:column medium-screen="4">
+                                <b:selectOneMenu value="#{tipoUserController.tipoUserSelecionado.tipoUsuario}" label="">
+                                    <f:selectItem itemLabel="Selecione o Tipo de Usuário"/>
+                                    <f:selectItems value="#{tipoUserController.tipoUsuario}" var="funcao"
+                                                   itemLabel="#{funcao}" itemValue="#{funcao}"/>
+                                </b:selectOneMenu>        
+                            </b:column>
+                        </b:row>  
+                        <b:row>                            
+                            <b:column span="1">
+                                <b:commandButton value="Voltar" look="info" icon="cancel" immediate="true" action="#{tipoUserController.doCancelarCadastro()}" />
+                            </b:column>
+                        </b:row>
+                    </h:form>
+                </b:panel>    
+
+                
+            </ui:define>    
+        </ui:composition>
+    </body>
+</html>
