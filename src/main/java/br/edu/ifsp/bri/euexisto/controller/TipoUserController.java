@@ -140,6 +140,4 @@ public class TipoUserController implements Serializable {
         this.listaTipoUsuario = listaTipoUsuario;
     }
    
-    
-    
-}
+}//fim da classe TipoUserController
