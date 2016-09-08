@@ -32,7 +32,7 @@ public class RuaService implements Serializable {
     }// fim do método add
     
     public void update(Rua rua){
-        if  (check(rua, 0))
+        if  (check(rua, rua.getId()))
             this.getRuaRepository().update(rua);
     }// fim do método update 
     

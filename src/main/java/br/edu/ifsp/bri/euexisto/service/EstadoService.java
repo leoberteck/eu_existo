@@ -6,6 +6,7 @@
 package br.edu.ifsp.bri.euexisto.service;
 
 import br.edu.ifsp.bri.euexisto.domain.Estado;
+import br.edu.ifsp.bri.euexisto.domain.EstadoQtde;
 import br.edu.ifsp.bri.euexisto.repository.EstadoRepository;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -59,6 +60,14 @@ public class EstadoService implements Serializable {
         return  estadoOk;
     }// fim do método check
     
+    public Estado getById (int id) {
+        return this.estadoRepository.getById(id);
+    }// fim do metodo getById
+    
+    public int getQtdeCidade(int idEstado){
+        return this.estadoRepository.getQtdeCidade(idEstado);
+    }// fim do método getQtdeCidade
+    
     public List<Estado> list(){
         return this.getEstadoRepository().list();
     }// fim do método list
@@ -66,6 +75,10 @@ public class EstadoService implements Serializable {
     public List<Estado> list(String valor, String tipo){
         return this.getEstadoRepository().list(valor, tipo);
     }// fim do método list
+    
+    public List<EstadoQtde> listEstadoQtde(){
+        return this.getEstadoRepository().listEstadoQtde();
+    }// fim do método ListEstadoQtde
     
     public EstadoRepository getEstadoRepository() {
         return estadoRepository;

@@ -31,7 +31,7 @@ public class BairroService implements Serializable {
     }// fim do método add
     
     public void update(Bairro bairro){
-        if  (check(bairro, 0))
+        if  (check(bairro, bairro.getId()))
             this.getBairroRepository().update(bairro);
     }// fim do método update 
     
