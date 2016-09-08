@@ -52,7 +52,7 @@ public class BairroRepository implements Serializable {
         List<Bairro> listaBairro = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {       
-            Query query = entityManager.createQuery("SELECT tp FROM Bairro tp ");
+            Query query = entityManager.createQuery("SELECT tp FROM Bairro tp order by nome ");
             listaBairro = query.getResultList();
         } catch (Exception e){
             e.printStackTrace();
@@ -64,18 +64,22 @@ public class BairroRepository implements Serializable {
     
     // Buscar o bairro pelo nome
     public List<Bairro> list(String valor){
-        String sql = "SELECT tp FROM Bairro tp "
-                   + "where upper(nome) = '" + valor.toUpperCase() + "'";
-
         List<Bairro> listaBairro = new ArrayList<>();
-        EntityManager entityManager = JPAConnection.getEntityManager();
-        try {       
-            Query query = entityManager.createQuery(sql);
-            listaBairro = query.getResultList();
-        } catch (Exception e){
-            e.printStackTrace();
+
+        if   (!valor.trim().equals("")) {
+             String sql = "SELECT tp FROM Bairro tp "
+                        + "where upper(nome) = '" + valor.trim().toUpperCase() + "'";
+
+             EntityManager entityManager = JPAConnection.getEntityManager();
+             try {       
+                 Query query = entityManager.createQuery(sql);
+                 listaBairro = query.getResultList();
+             } catch (Exception e){
+                 e.printStackTrace();
+             }
+             entityManager.close();
         }
-        entityManager.close();
+        
         return listaBairro;
     }// fim do método list
     
@@ -106,11 +110,11 @@ public class BairroRepository implements Serializable {
         
         if   (idOld == 0) {
              sql = "SELECT id FROM Bairro "
-                 + "where  upper(nome) = '" + valor.toUpperCase() + "'";
+                 + "where  upper(nome) = '" + valor.trim().toUpperCase() + "'";
         }
         else {
              sql = "SELECT id FROM Bairro "
-                 + "where  upper(nome) = '" + valor.toUpperCase() + "' "
+                 + "where  upper(nome) = '" + valor.trim().toUpperCase() + "' "
                  + "and    id          <> " + idOld;
         }
 

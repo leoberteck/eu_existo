@@ -52,7 +52,7 @@ public class RuaRepository implements Serializable {
         List<Rua> listaRua = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {       
-            Query query = entityManager.createQuery("SELECT tp FROM Rua tp ");
+            Query query = entityManager.createQuery("SELECT tp FROM Rua tp order by nome ");
             listaRua = query.getResultList();
         } catch (Exception e){
             e.printStackTrace();
@@ -64,20 +64,25 @@ public class RuaRepository implements Serializable {
     
     // Buscar a rua pelo nome
     public List<Rua> list(String valor){
-        String sql = "SELECT tp FROM Rua tp "
-                   + "where upper(nome) = '" + valor.toUpperCase() + "'";
-
         List<Rua> listaRua = new ArrayList<>();
-        EntityManager entityManager = JPAConnection.getEntityManager();
-        try {       
-            Query query = entityManager.createQuery(sql);
-            listaRua = query.getResultList();
-        } catch (Exception e){
-            e.printStackTrace();
+        
+        if   (!valor.trim().equals("")) {
+             String sql = "SELECT tp FROM Rua tp "
+                   + "where upper(nome) = '" + valor.trim().toUpperCase() + "'";
+
+             EntityManager entityManager = JPAConnection.getEntityManager();
+             try {       
+                 Query query = entityManager.createQuery(sql);
+                 listaRua = query.getResultList();
+             } 
+             catch (Exception e){
+                 e.printStackTrace();
+             }
+             entityManager.close();
         }
-        entityManager.close();
+        
         return listaRua;
-    }    
+    }// fim do método list 
     
     
     // Verificar se a rua que está sendo incluída ja existe
@@ -106,11 +111,11 @@ public class RuaRepository implements Serializable {
         
         if   (idOld == 0) {
              sql = "SELECT id FROM Rua "
-                 + "where  upper(nome) = '" + valor.toUpperCase() + "'";
+                 + "where  upper(nome) = '" + valor.trim().toUpperCase() + "'";
         }
         else {
              sql = "SELECT id FROM Rua "
-                 + "where  upper(nome) = '" + valor.toUpperCase() + "' "
+                 + "where  upper(nome) = '" + valor.trim().toUpperCase() + "' "
                  + "and    id          <> " + idOld;
         }
 
