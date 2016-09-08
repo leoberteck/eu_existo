@@ -63,11 +63,10 @@ public class TipoUser {
         this.listaUsuario = listaUsuario;
     }
     
-    
 
     @Override
     public int hashCode() {
-        int hash = 3;
+        int hash = 13;
         hash = 29 * hash + this.codigoTpUsuario;
         return hash;
     }

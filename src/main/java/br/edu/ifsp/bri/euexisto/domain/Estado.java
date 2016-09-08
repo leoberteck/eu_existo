@@ -5,12 +5,17 @@
  */
 package br.edu.ifsp.bri.euexisto.domain;
 
+import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
+import static javax.persistence.CascadeType.ALL;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -22,20 +27,27 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "ESTADO")
-public class Estado {
+@SequenceGenerator(name = "ESTADO_SEQ", sequenceName = "ESTADO_SEQ",allocationSize = 1 )
+public class Estado implements Serializable {
     
+    @Id
+    @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ESTADO_SEQ")
     private int    id;
+    @Column(name = "NOME", length = 100, nullable = false)
     private String nome;
+    @Column(name = "UF", length = 2, nullable = false)
     private String uf;
+    
+    //@OneToMany(mappedBy="estado")
     //private List<Cidade> listaCidade;
 
     public Estado() {
+        id   = 0;
+        nome = "";
+        uf   = "";
     }
 
-    @Id
-    @Column(name = "ID")
-    @SequenceGenerator(name = "SEQ_ESTADO", sequenceName = "SEQ_ESTADO",allocationSize = 1 ) 
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_ESTADO")
     public int getId() {
         return id;
     }
@@ -44,7 +56,6 @@ public class Estado {
         this.id = id;
     }
 
-    @Column(name = "NOME", length = 100, nullable = false)
     public String getNome() {
         return nome;
     }
@@ -53,7 +64,6 @@ public class Estado {
         this.nome = nome;
     }
 
-    @Column(name = "UF", length = 2, nullable = false)
     public String getUf() {
         return uf;
     }
@@ -62,8 +72,8 @@ public class Estado {
         this.uf = uf;
     }
     
+    //@OneToMany(cascade=ALL, mappedBy = "estado")
     /*
-    @OneToMany(mappedBy = "cidade")
     public List<Cidade> getListaCidade() {
         return listaCidade;
     }
@@ -71,8 +81,8 @@ public class Estado {
     public void setListaCidade(List<Cidade> listaCidade) {
         this.listaCidade = listaCidade;
     }
-*/
-
+    */
+    
     @Override
     public int hashCode() {
         int hash = 3;

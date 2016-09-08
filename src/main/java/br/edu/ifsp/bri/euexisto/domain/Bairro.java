@@ -19,6 +19,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "BAIRRO")
+@SequenceGenerator(name = "BAIRRO_SEQ", sequenceName = "BAIRRO_SEQ",allocationSize = 1 ) 
 public class Bairro {
     
     private int    id;
@@ -29,8 +30,7 @@ public class Bairro {
 
     @Id
     @Column(name = "ID")
-    @SequenceGenerator(name = "SEQ_BAIRRO", sequenceName = "SEQ_BAIRRO",allocationSize = 1 ) 
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_BAIRRO")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BAIRRO_SEQ")
     public int getId() {
         return id;
     }
@@ -51,7 +51,7 @@ public class Bairro {
 
     @Override
     public int hashCode() {
-        int hash = 3;
+        int hash = 11;
         hash = 29 * hash + this.id;
         return hash;
     }

@@ -5,6 +5,7 @@
  */
 package br.edu.ifsp.bri.euexisto.domain;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -25,19 +26,22 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "CIDADE")
-public class Cidade {
+@SequenceGenerator(name = "CIDADE_SEQ", sequenceName = "CIDADE_SEQ",allocationSize = 1 ) 
+public class Cidade implements Serializable{
     
     private int    id;
     private String nome;
     private Estado estado;
 
     public Cidade() {
+        id     = 0;
+        nome   = "";
+        estado = new Estado();
     }
 
     @Id
     @Column(name = "ID")
-    @SequenceGenerator(name = "SEQ_CIDADE", sequenceName = "SEQ_CIDADE",allocationSize = 1 ) 
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_CIDADE")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CIDADE_SEQ")
     public int getId() {
         return id;
     }
@@ -55,8 +59,9 @@ public class Cidade {
         this.nome = nome;
     } 
     
-    @ManyToOne (cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = TipoUser.class)
-    @JoinColumn(name = "ESTADO", nullable = false, referencedColumnName = "ESTADO")
+    
+    @ManyToOne //(cascade = CascadeType.ALL) //, fetch = FetchType.LAZY, targetEntity = Estado.class)
+    @JoinColumn(name = "IDESTADO", nullable = false, referencedColumnName = "ID")
     //@Column(name = "IDESTADO", nullable = false )
     public Estado getEstado() {
         return estado;
@@ -68,7 +73,7 @@ public class Cidade {
 
     @Override
     public int hashCode() {
-        int hash = 3;
+        int hash = 7;
         hash = 29 * hash + this.id;
         return hash;
     }
