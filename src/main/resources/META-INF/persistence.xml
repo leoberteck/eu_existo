@@ -2,9 +2,19 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="EuExistoPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+    <class>br.edu.ifsp.bri.euexisto.domain.Estado</class>
+    <class>br.edu.ifsp.bri.euexisto.domain.Cidade</class>
+    <class>br.edu.ifsp.bri.euexisto.domain.Bairro</class>
+    <class>br.edu.ifsp.bri.euexisto.domain.Rua</class>
     <class>br.edu.ifsp.bri.euexisto.domain.TipoUser</class>
     <class>br.edu.ifsp.bri.euexisto.domain.TipoUsuario</class>
     <class>br.edu.ifsp.bri.euexisto.domain.Usuario</class>
+    <class>br.edu.ifsp.bri.euexisto.domain.FaixaEtaria</class>
+    <class>br.edu.ifsp.bri.euexisto.domain.Cep</class>
+    <class>br.edu.ifsp.bri.euexisto.domain.Endereco</class>
+    <class>br.edu.ifsp.bri.euexisto.domain.EstadoQtde</class>
+    <class>br.edu.ifsp.bri.euexisto.domain.Cidadao</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@74.55.77.202:1521:XE"/>
       <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
@@ -14,10 +24,10 @@
       <property name="hibernate.show_sql" value="true"/>
       <property name="hibernate.format_sql" value="true"/>
       <property name="hibernate.connection.charSet" value="UTF-8"/>
-      <property name="javax.persistence.schema-generation.database.action" value="none"/>
       <!-- 
        <property name="javax.persistence.sql-load-script-source" value="META-INF/script.sql"/>
        -->
+      <property name="javax.persistence.schema-generation.database.action" value="none"/>
     </properties>
   </persistence-unit>
 </persistence>

@@ -8,15 +8,27 @@ and open the template in the editor.
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"      
-                xmlns:b="http://bootsfaces.net/ui">
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
     
     <h:outputScript library="js" name="holder.js"/>
-    <b:navBar brand="Feeding People" brand-href="" inverse="true" fixed="top" fluid="true">        
+    <!--b:navBar brand="Eu Existo" brand-href="../../index.xhtml" inverse="true" fixed="top" fluid="true">        
         <b:navbarLinks pull="right">
             <b:navLink value="Tipo Usuário" href="/paginas/tipousuario/list.xhtml"/>
         </b:navbarLinks>
+    </b:navBar-->
+    <b:navBar brand="Eu Existo" inverse="true" brandHref="#" fixed="top">
+      	<b:navbarLinks>
+      	    <b:navLink value="home"     iconAwesome="home" href="../../paginas/menu/index.xhtml"></b:navLink>
+      	    <b:navLink value="Estado"   icon="cross"       href="../../paginas/estado/listar.xhtml">     </b:navLink>
+      	    <b:navLink value="Cidade"                      href="../../paginas/cidade/listar.xhtml">     </b:navLink>
+      	    <b:navLink value="Bairro"                      href="../../paginas/bairro/listar.xhtml">     </b:navLink>
+      	    <b:navLink value="Rua"                         href="../../paginas/rua/listar.xhtml">        </b:navLink>
+      	    <b:navLink value="Faixa Etária"                href="../../paginas/faixaetaria/listar.xhtml"></b:navLink>
+      	    <b:navLink value="CEP"                         href="../../paginas/cep/listar.xhtml">        </b:navLink>
+      	    <b:navLink value="Endereço"                    href="../../paginas/endereco/listar.xhtml">   </b:navLink>
+      	    <b:navLink value="Cidadão"                     href="../../paginas/cidadao/listar.xhtml">    </b:navLink>
+      	</b:navbarLinks>
     </b:navBar>
-    
-    
     
 </ui:composition>

@@ -40,6 +40,7 @@ public class Cidadao implements Serializable{
     private Date     dataNasc;
     private String   senha;
     private Endereco endereco;
+    private String   sexo;
     //private Cidadao  responsavel1;
     //private Cidadao  responsavel2;
 
@@ -53,6 +54,7 @@ public class Cidadao implements Serializable{
         dataNasc        = new Date();
         senha           = "";
         endereco        = new Endereco();
+        sexo            = "";
         //responsavel1    = new Cidadao();
         //responsavel2    = new Cidadao();
     }
@@ -121,6 +123,15 @@ public class Cidadao implements Serializable{
     public void setDataNasc(Date dataNasc) {
         this.dataNasc = dataNasc;
     }  
+    
+    @Column(name = "SEXO", length = 1, nullable = false)
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
     
     @Column(name = "SENHA", length = 100, nullable = false)
     public String getSenha() {
@@ -215,7 +226,8 @@ public class Cidadao implements Serializable{
         return "Cidadao{" + "id="            + id           + ", nome="            + nome                + ", " +
                             " cpf="          + cpf          + ", email="           + email               + ", " +
                             " telefoneFixo=" + telefoneFixo + ", telefoneCelular=" + telefoneCelular     + ", " +
-                            " dataNasc="     + dataNasc     + ", endereco="        + endereco.toString() + ", " +"}";
+                            " dataNasc="     + dataNasc     + ", endereco="        + endereco.toString() + ", " +
+                            " sexo="         + sexo         + "}";
                             //" responsavel1=" + responsavel1.toString() + 
                             //" responsavel2=" + responsavel2.toString() + "}";
     }   

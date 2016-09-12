@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+        <title></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body>
+        <ui:composition template="/WEB-INF/templates/template.xhtml">
+            <ui:define name="titulo">
+                Cidadão - Inclusão
+            </ui:define>
+            <ui:define name="content">
+                <br></br><br></br>
+                <b:panel title="Cidadão" look="primary">
+                    <h:form id="formIncluir" >
+
+                        <b:row>
+                            <b:column medium-screen="3" span="8">
+                                <b:inputText value="#{cidadaoController.cidadaoComposite.nomeCidadao}" label="Nome" maxlength="250" required="true" style="width:600px"/>
+                            </b:column>
+                        </b:row>
+                        
+                        <b:row>
+                            <b:column medium-screen="3" span="8">
+                                <b:inputText value="#{cidadaoController.cidadaoComposite.email}" label="Email" maxlength="100" style="width:600px"/>
+                                <f:passThroughAttribute name="type" value="email"/>
+                            </b:column>
+                        </b:row>
+                        
+                        <b:row>
+                            <b:column medium-screen="3" span="2">
+                                <b:inputText value="#{cidadaoController.cidadaoComposite.cpf}" label="CPF" maxlength="14" required="true" style="width:150px"/>
+                            </b:column>
+                            <b:column medium-screen="3" span="6">
+                                <b:inputText value="#{cidadaoController.cidadaoComposite.dataNascString}" label="Data de Nascimento" maxlength="10" required="true" style="width:150px"/>
+                                <f:convertDateTime locale="pt_BR" type="date" dateStyle="short" pattern="dd/MM/YYYY"/>
+                            </b:column>
+                        </b:row>
+                        
+                        <b:row>
+                            <b:column medium-screen="3" span="8">
+                                <p:outputLabel for="console" value="Sexo" />
+                                <p:selectOneRadio id="console" value="#{cidadaoController.cidadaoComposite.sexo}">
+                                   <f:selectItem itemLabel="Feminino" itemValue="F" />
+                                   <f:selectItem itemLabel="Masculino" itemValue="M" />
+                                </p:selectOneRadio>
+                            </b:column>
+                        </b:row>
+                        
+                        <b:row>
+                            <b:column medium-screen="3" span="2">
+                                <b:inputText value="#{cidadaoController.cidadaoComposite.telefoneFixo}" label="Fixo" maxlength="14" style="width:150px"/>
+                            </b:column>
+                            <b:column medium-screen="3" span="6">
+                                <b:inputText value="#{cidadaoController.cidadaoComposite.telefoneCelular}" label="Celular" maxlength="15" style="width:150px"/>
+                            </b:column>
+                        </b:row>
+                        
+                        <b:row>
+                            <b:column medium-screen="3" span="8">
+                                <b:inputText value="#{cidadaoController.cidadaoComposite.numeroCep}" label="CEP (formato XX.XXX-XXX)" maxlength="10" required="true" style="width:150px"/>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="7">
+                                <b:inputText id="nomeRua" value="#{cidadaoController.cidadaoComposite.nomeRua}" label="Rua" maxlength="100" required="true" style="width:600px"/>
+                            </b:column>
+                            <b:column medium-screen="3" span="1">
+                                <b:inputText value="#{cidadaoController.cidadaoComposite.numero}" label="Nº" maxlength="10" required="true" style="width:50px"/>
+                            </b:column>
+                        </b:row>
+                        
+                        <b:row>
+                            <b:column medium-screen="3" span="8">
+                                <b:inputText id="complemento" value="#{cidadaoController.cidadaoComposite.complemento}" label="Complemento" maxlength="200" style="width:600px"/>
+                            </b:column>
+                        </b:row>
+                        
+                        <b:row>
+                            <b:column medium-screen="3" span="8">
+                                <b:inputText id="nomeBairro" value="#{cidadaoController.cidadaoComposite.nomeBairro}" label="Bairro" maxlength="100" required="true" style="width:600px"/>
+                            </b:column>
+                        </b:row>
+                                         
+                        <b:row>
+                            <b:column medium-screen="3" span="2">
+                                <b:inputText value="#{cidadaoController.cidadaoComposite.uf}" label="Estado" maxlength="2" required="true" style="width:50px"/>
+                            </b:column>
+                            <b:column medium-screen="3" span="6">
+                                <b:inputText value="#{cidadaoController.cidadaoComposite.nomeCidade}" label="Cidade" maxlength="100" required="true" style="width:600px"/>
+                            </b:column>
+                        </b:row>
+ 
+                        <b:row>
+                            <b:column medium-screen="3" span="2">
+                                <b:inputText value="#{cidadaoController.cidadaoComposite.senha}" label="Senha" maxlength="14" style="width:150px"/>
+                            </b:column>
+                            <b:column medium-screen="3" span="6">
+                                <b:inputText value="#{cidadaoController.cidadaoComposite.senha}" label="Repita a Senha" maxlength="14" style="width:150px"/>
+                            </b:column>
+                        </b:row>
+                        
+                        <b:row>
+                            <b:column span="1">
+                                <b:commandButton value="Retornar" look="sucess" icon="cancel" immediate="true" action="#{cidadaoController.doCancel()}" />
+                            </b:column>
+                            <b:column offset-lg="1" span="7">
+                                <b:commandButton value="Enviar" look="info" action="#{cidadaoController.add()}"/>
+                            </b:column>
+                        </b:row>
+                    </h:form>
+                </b:panel>    
+
+            </ui:define>    
+        </ui:composition>
+    </body>
+</html>

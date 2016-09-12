@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <body style="padding-top: 75px">
+        <ui:composition template="/WEB-INF/templates/template.xhtml">
+            <ui:define name="titulo">
+                Eu Exito - Menu
+            </ui:define>
+            <ui:define name="content">
+                <b:container>
+                    <b:navBar brand="Eu Existo" inverse="true" brandHref="#" fixed="top">
+      			<b:navbarLinks>
+      				<b:navLink value="home"     iconAwesome="home" href="#"></b:navLink>
+      				<b:navLink value="Estado"   icon="cross"       href="../../paginas/estado/listar.xhtml">     </b:navLink>
+      				<b:navLink value="Cidade"                      href="../../paginas/cidade/listar.xhtml">     </b:navLink>
+      				<b:navLink value="Bairro"                      href="../../paginas/bairro/listar.xhtml">     </b:navLink>
+      				<b:navLink value="Rua"                         href="../../paginas/rua/listar.xhtml">        </b:navLink>
+      				<b:navLink value="Faixa Etária"                href="../../paginas/faixaetaria/listar.xhtml"></b:navLink>
+                                <b:navLink value="CEP"                         href="../../paginas/cep/listar.xhtml">        </b:navLink>
+      	                        <b:navLink value="Endereço"                    href="../../paginas/endereco/listar.xhtml">   </b:navLink>
+      	                        <b:navLink value="Cidadão"                     href="../../paginas/cidadao/listar.xhtml">   </b:navLink>
+      			</b:navbarLinks>
+                    </b:navBar>
+                </b:container>
+                
+                <br></br><br></br>
+      
+                <b:container>
+                    <b:row>
+      			<b:column span="12">
+      				<b:panel title="hello world">Welcome to BootsFaces world :)</b:panel>
+      			</b:column>
+                    </b:row>
+                    <b:row>
+      			<b:column span="12">
+      				<h:messages />
+      			</b:column>
+                    </b:row>
+                </b:container>
+
+            </ui:define>    
+        </ui:composition>
+    </body>
+</html>
+

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <head>
+        <title></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body>
+        <ui:composition template="/WEB-INF/templates/template.xhtml">
+            <ui:define name="titulo">
+                Endereço - Inclusão
+            </ui:define>
+            <ui:define name="content">
+                <br></br><br></br>
+                <b:panel title="Endereço" look="primary">
+                    <h:form id="formIncluir" >
+                                         
+                        <b:row>
+                            <b:column medium-screen="3" span="8">
+                                <b:inputText value="#{enderecoController.estado.uf}" label="Estado" readonly="true" required="true" style="width:50px"/>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="8">
+                                <b:inputText value="#{enderecoController.cidade.nome}" label="Cidade" readonly="true" required="true" style="width:600px"/>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="8">
+                                <b:selectOneMenu value="#{enderecoController.cep}" label="CEP" required="true" style="width:180px" >
+                                    <f:selectItem itemLabel="Selecione o CEP"/>
+                                    <f:selectItems value="#{enderecoController.listaCep}" var="funcao"
+                                                   itemLabel="#{funcao.numeroCep}" itemValue="#{funcao}"/>
+                                    <f:ajax render="nomeRua,nomeBairro" event="change" />  
+                                </b:selectOneMenu>        
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="7">
+                                <b:inputText id="nomeRua" value="#{enderecoController.cep.rua.nome} (do #{enderecoController.cep.numeroIni} ao #{enderecoController.cep.numeroFim})" label="Rua" readonly="true" required="true" style="width:600px"/>
+                            </b:column>
+                            <b:column medium-screen="3" span="1">
+                                <b:inputText value="#{enderecoController.endereco.numero}" label="Nº" maxlength="10" required="true" style="width:50px"/>
+                            </b:column>
+                        </b:row>
+                        
+                        <b:row>
+                            <b:column medium-screen="3" span="8">
+                                <b:inputTextarea value="#{enderecoController.endereco.complemento}" label="Complemento" maxlength="200" rows="2" style="width:600px"/>
+                            </b:column>
+                        </b:row>
+                        
+                        <b:row>
+                            <b:column medium-screen="3" span="8">
+                                <b:inputText id="nomeBairro" value="#{enderecoController.cep.bairro.nome}" label="Bairro" readonly="true" required="true" style="width:600px"/>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column span="1">
+                                <b:commandButton value="Retornar" look="sucess" icon="cancel" immediate="true" action="#{enderecoController.doCancel()}" />
+                            </b:column>
+                            <b:column offset-lg="1" span="7">
+                                <b:commandButton value="Enviar" look="info" action="#{enderecoController.add()}"/>
+                            </b:column>
+                        </b:row>
+                    </h:form>
+                </b:panel>    
+
+            </ui:define>    
+        </ui:composition>
+    </body>
+</html>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <head>
+        <title></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body>
+        <ui:composition template="/WEB-INF/templates/template.xhtml">
+            <ui:define name="titulo">
+                Faixa Etária - Inclusão
+            </ui:define>
+            <ui:define name="content">
+                <br></br><br></br>
+                <b:panel title="Faixa Etária" look="primary">
+                    <h:form id="formIncluir" >
+
+                        <b:row>
+                            <b:column medium-screen="3" span="2">
+                                <b:inputText value="#{faixaEtariaController.estado.uf}" label="Estado" readonly="true" required="true" style="width:50px"/>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="2">
+                                <b:inputText value="#{faixaEtariaController.cidade.nome}" label="Cidade" readonly="true" required="true" style="width:300px"/>
+                            </b:column>
+                        </b:row>
+                        
+
+                        <b:row>
+                            <b:column medium-screen="3" span="4">
+                                <b:inputText value="#{faixaEtariaController.faixaEtaria.descricao}" label="Descrição" maxlength="100" required="true" style="width:600px"/>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="1" span="2">
+                                <h:outputLabel value="De (em anos)"/>
+                            </b:column>
+                            <b:column medium-screen="1" span="2">
+                                <h:outputLabel value="Até (em anos)"/>
+                            </b:column>
+                        </b:row>
+                        
+                        <b:row>
+                            <b:column medium-screen="3" span="2">
+                                <b:inputText value="#{faixaEtariaController.faixaEtaria.idadeIni}" label="" maxlength="3" required="true" style="width:50px"/>
+                            </b:column>
+                            <b:column medium-screen="3" span="2">
+                                <b:inputText value="#{faixaEtariaController.faixaEtaria.idadeFim}" label="" maxlength="3" required="true" style="width:50px"/>
+                            </b:column>
+                        </b:row>                        
+                        
+                        <b:row>
+                            <b:column span="2">
+                                <b:commandButton value="Retornar" look="sucess" icon="cancel" immediate="true" action="#{faixaEtariaController.doCancel()}" />
+                            </b:column>
+                            <b:column offset-lg="2" span="2">
+                                <b:commandButton value="Enviar" look="info" action="#{faixaEtariaController.add()}"/>
+                            </b:column>
+                        </b:row>
+                    </h:form>
+                </b:panel>    
+
+            </ui:define>    
+        </ui:composition>
+    </body>
+</html>

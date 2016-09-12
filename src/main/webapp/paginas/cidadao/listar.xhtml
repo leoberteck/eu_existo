@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <head>
+        <title></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body>
+       
+        <ui:composition template="/WEB-INF/templates/template.xhtml">
+            <ui:define name="titulo">
+                Cidadão - Lista
+            </ui:define>
+            <ui:define name="content">
+                <br></br><br></br>
+                <h:form>
+                    <b:panel title="Cidadão" look="primary">
+                     
+                        <b:commandButton value="Incluir" action="#{cidadaoController.doAdd()}"></b:commandButton>
+                        <br></br><br></br>
+                       
+                        <b:row>
+                            <b:column medium-screen="3" span="1">
+                                <b:selectOneMenu id="idEstado" value="#{cidadaoController.estado}" 
+                                                 label="Estado" required="true" style="width:180px">
+                                    <f:selectItem itemLabel="Selecione o Estado" itemValue="#{cidadaoController.estado}"/>
+                                    <f:selectItems value="#{cidadaoController.listaEstado}" var="funcao"
+                                                   itemLabel="#{funcao.uf}" itemValue="#{funcao}"/>
+                                    <f:ajax render="idCidade,cidadaoData" event="change" listener="#{cidadaoController.listCidade}" />  
+                                </b:selectOneMenu>        
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="1">
+                                <b:selectOneMenu id="idCidade" value="#{cidadaoController.cidade}" 
+                                                 label="Cidade" required="true" style="width:180px">
+                                    <f:selectItem itemLabel="Selecione a Cidade" itemValue="#{cidadaoController.cidade}"/>
+                                    <f:selectItems value="#{cidadaoController.listaCidade}" var="funcao"
+                                                   itemLabel="#{funcao.nome}" itemValue="#{funcao}"/>
+                                    <f:ajax render="cidadaoData" event="change" listener="#{cidadaoController.listCidadao}"/> 
+                                </b:selectOneMenu>        
+                            </b:column>
+                        </b:row>
+                         
+                        
+                        <b:dataTable id="cidadaoData" value="#{cidadaoController.listaCidadao}" 
+                                     var="item" styleClass="table table-striped">
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Nome"/>
+                                </f:facet> 
+                                <h:outputText value="#{item.nome}"/>
+                            </h:column> 
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Email"/>
+                                </f:facet> 
+                                <h:outputText value="#{item.email}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="CPF"/>
+                                </f:facet> 
+                                <h:outputText value="#{item.cpf}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Data Nascimento"/>
+                                </f:facet> 
+                                <h:outputText value="#{item.dataNasc}"/>
+                            </h:column> 
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Sexo"/>
+                                </f:facet> 
+                                <h:outputText value="#{item.sexo}"/>
+                            </h:column> 
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Fixo"/>
+                                </f:facet> 
+                                <h:outputText value="#{item.telefoneFixo}"/>
+                            </h:column> 
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Celular"/>
+                                </f:facet> 
+                                <h:outputText value="#{item.telefoneCelular}"/>
+                            </h:column> 
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Endereço"/>
+                                </f:facet> 
+                                <h:outputText value="#{item.enderecoCompleto}"/>
+                            </h:column> 
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Ações"/>
+                                </f:facet>
+                                <h:commandLink title="Alterar" action="#{cidadaoController.doUpdate()}">                                    
+                                    <h:graphicImage value="/resources/images/upd.png"></h:graphicImage>
+                                    <f:setPropertyActionListener value="#{item}" target="#{cidadaoController.cidadaoCompositeSelecionado}"/>
+                                </h:commandLink>
+                                <h:commandLink title="Excluir" action="#{cidadaoController.doRemove()}">
+                                    <h:graphicImage value="/resources/images/delete.png"></h:graphicImage>
+                                    <f:setPropertyActionListener value="#{item}" target="#{cidadaoController.cidadaoCompositeSelecionado}"/>
+                                </h:commandLink>
+                                <h:commandLink title="Consultar" action="#{cidadaoController.doList()}">
+                                    <h:graphicImage value="/resources/images/consulta.png"></h:graphicImage>
+                                    <f:setPropertyActionListener value="#{item}" target="#{cidadaoController.cidadaoCompositeSelecionado}"/>
+                                </h:commandLink>
+                            </h:column>                            
+                        </b:dataTable>   
+            
+                        <b:commandButton value="Incluir" action="#{cidadaoController.doAdd()}"></b:commandButton>
+                    </b:panel>
+                </h:form>             
+            </ui:define>    
+        </ui:composition>
+        
+    </body>
+
+</html>

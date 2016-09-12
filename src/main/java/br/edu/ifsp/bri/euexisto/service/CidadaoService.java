@@ -45,28 +45,40 @@ public class CidadaoService {
     // na inclusão,  id = 0
     // na alteração, id do objeto que está sendo alterado
     public boolean check (Cidadao cidadao, int idOld) {
-        boolean enderecoOk = true;
+        boolean cidadaoOk = true;
 
         if   (cidadao.getNome().trim().equals("")){
-             enderecoOk = false;
+             cidadaoOk = false;
+             System.out.println("Um " + cidadaoOk);
         }
         else if   (cidadao.getCpf().trim().equals("")){
-                  enderecoOk = false;
+                  cidadaoOk = false;
+             System.out.println("Dois " + cidadaoOk);
         }
         else if   (cidadao.getDataNasc().equals("")){
-                  enderecoOk = false;
+                  cidadaoOk = false;
+             System.out.println("Três " + cidadaoOk);
         }
         else if   (cidadao.getSenha().trim().equals("")){
-                  enderecoOk = false;
+                  cidadaoOk = false;
+             System.out.println("Quatro " + cidadaoOk);
         }
         else if   (cidadao.getEndereco().getId() == 0) {
-                  enderecoOk = false;
+                  cidadaoOk = false;
+             System.out.println("Cinco " + cidadaoOk);
+        }
+        else if   ((cidadao.getSexo().trim().equals("")) || 
+                   (!(cidadao.getSexo().trim().equals("F"))) &&
+                   (!(cidadao.getSexo().trim().equals("M")))) {
+                  cidadaoOk = false;
+             System.out.println("Seis " + cidadaoOk);
         }
         else if   (this.cidadaoRepository.check(cidadao.getEmail(), cidadao.getCpf(), idOld) > 0) {
-                  enderecoOk = false;
+                  cidadaoOk = false;
+             System.out.println("Sete " + cidadaoOk);
         }
 
-        return  enderecoOk;
+        return  cidadaoOk;
     }// fim do método check
     
     public List<Cidadao> list(){
