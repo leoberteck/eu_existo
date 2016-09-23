@@ -14,7 +14,8 @@
     <class>br.edu.ifsp.bri.euexisto.domain.Endereco</class>
     <class>br.edu.ifsp.bri.euexisto.domain.EstadoQtde</class>
     <class>br.edu.ifsp.bri.euexisto.domain.Cidadao</class>
-    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <class>br.edu.ifsp.bri.euexisto.domain.CidadaoEstadoSexoQtde</class>
+    <class>br.edu.ifsp.bri.euexisto.domain.CidadaoSexoQtde</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@192.168.100.213:1521:XE"/>
       <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>

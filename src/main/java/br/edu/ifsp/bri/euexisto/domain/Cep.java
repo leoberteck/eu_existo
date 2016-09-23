@@ -5,6 +5,7 @@
  */
 package br.edu.ifsp.bri.euexisto.domain;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -26,7 +27,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "CEP")
 @SequenceGenerator(name = "CEP_SEQ", sequenceName = "CEP_SEQ",allocationSize = 1 ) 
-public class Cep {
+public class Cep implements Serializable {
     
     private int    id;
     private String numeroCep;

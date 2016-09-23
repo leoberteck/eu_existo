@@ -5,6 +5,7 @@
  */
 package br.edu.ifsp.bri.euexisto.domain;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,7 +21,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "BAIRRO")
 @SequenceGenerator(name = "BAIRRO_SEQ", sequenceName = "BAIRRO_SEQ",allocationSize = 1 ) 
-public class Bairro {
+public class Bairro implements Serializable {
     
     private int    id;
     private String nome;

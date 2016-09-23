@@ -9,6 +9,7 @@ import br.edu.ifsp.bri.euexisto.composite.CidadaoComposite;
 //import br.edu.ifsp.bri.euexisto.domain.Bairro;
 //import br.edu.ifsp.bri.euexisto.domain.Cep;
 import br.edu.ifsp.bri.euexisto.domain.Cidadao;
+import br.edu.ifsp.bri.euexisto.domain.CidadaoSexoQtde;
 import br.edu.ifsp.bri.euexisto.domain.Cidade;
 import br.edu.ifsp.bri.euexisto.domain.Estado;
 //import br.edu.ifsp.bri.euexisto.domain.Cidade;
@@ -28,6 +29,7 @@ import br.edu.ifsp.bri.euexisto.service.EstadoService;
 //import br.edu.ifsp.bri.euexisto.service.RuaService;
 
 import java.io.Serializable;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -43,33 +45,33 @@ import javax.inject.Named;
 @SessionScoped
 public class CidadaoController implements Serializable {
   
-    private Cidadao              cidadao;
-    private Estado               estado;
-    private Cidade               cidade;
+    private Cidadao                     cidadao;
+    private Estado                      estado;
+    private Cidade                      cidade;
     /*
-    private Cep                  cep;
-    private Rua                  rua;
-    private Bairro               bairro;
-    private Endereco             endereco;
+    private Cep                         cep;
+    private Rua                         rua;
+    private Bairro                      bairro;
+    private Endereco                    endereco;
     */
-    private CidadaoComposite     cidadaoComposite;            //usar para adição 
-    private CidadaoComposite     cidadaoCompositeSelecionado; //usar alteração e exclusão
+    private CidadaoComposite            cidadaoComposite;            //usar para adição 
+    private CidadaoComposite            cidadaoCompositeSelecionado; //usar alteração e exclusão
     
-    private CidadaoFacade        cidadaoFacade;
+    private CidadaoFacade               cidadaoFacade;
     
-    private EstadoService        estadoService;
-    private CidadeService        cidadeService;
-    private CidadaoService       cidadaoService;
+    private EstadoService               estadoService;
+    private CidadeService               cidadeService;
+    private CidadaoService              cidadaoService;
     /*
-    private CepService           cepService;
-    private RuaService           ruaService;
-    private BairroService        bairroService;
-    private EnderecoService      enderecoService;
+    private CepService                  cepService;
+    private RuaService                  ruaService;
+    private BairroService               bairroService;
+    private EnderecoService             enderecoService;
     */
     
-    private List<Estado>         listaEstado;
-    private List<Cidade>         listaCidade;
-    private List<Cidadao>        listaCidadao;
+    private List<Estado>                listaEstado;
+    private List<Cidade>                listaCidade;
+    private List<Cidadao>               listaCidadao;
     
     @PostConstruct
     public void startDados(){
@@ -103,7 +105,7 @@ public class CidadaoController implements Serializable {
         this.list();
     }    
     
-    public String add(){
+    public String add() throws ParseException{
         this.getCidadaoFacade().add(cidadaoComposite);
         this.clearDados();
         this.list();
@@ -125,18 +127,18 @@ public class CidadaoController implements Serializable {
     }
         
     public void list(){
-        listaEstado   = this.getEstadoService().list();
-        listaCidade   = this.getCidadeService().list(estado.getId());
-        listaCidadao  = this.getCidadaoService().list(cidade.getId(),"C");
+        listaEstado                 = this.getEstadoService().list();
+        listaCidade                 = this.getCidadeService().list(estado.getId());
+        listaCidadao                = this.getCidadaoService().list(cidade.getId(),"C");
     }// fim do método list
  
     public void listCidade() {
-        listaCidade   = this.getCidadeService().list(estado.getId());
-        listaCidadao  = this.getCidadaoService().list(cidade.getId(),"C");
+        listaCidade                 = this.getCidadeService().list(estado.getId());
+        listaCidadao                = this.getCidadaoService().list(cidade.getId(),"C");
     }
  
     public void listCidadao() {
-        listaCidadao  = this.getCidadaoService().list(cidade.getId(),"C");
+        listaCidadao                = this.getCidadaoService().list(cidade.getId(),"C");
     }
     
     public void clearDados(){

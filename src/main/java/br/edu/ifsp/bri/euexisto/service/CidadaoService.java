@@ -6,6 +6,7 @@
 package br.edu.ifsp.bri.euexisto.service;
 
 import br.edu.ifsp.bri.euexisto.domain.Cidadao;
+import br.edu.ifsp.bri.euexisto.domain.CidadaoSexoQtde;
 import br.edu.ifsp.bri.euexisto.repository.CidadaoRepository;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -92,6 +93,18 @@ public class CidadaoService {
     public List<Cidadao> list(String valor, String tipoBusca){
         return this.getCidadaoRepository().list(valor, tipoBusca);
     }// fim do método list
+      
+    public List<CidadaoSexoQtde> listCidadaoEstadoSexoQtde(){
+        return this.getCidadaoRepository().listCidadaoEstadoSexoQtde();
+    }// fim do método ListCidadaoEstadoSexoQtde
+      
+    public List<CidadaoSexoQtde> listCidadaoCidadeSexoQtde(int idEstado){
+        return this.getCidadaoRepository().listCidadaoCidadeSexoQtde(idEstado);
+    }// fim do método ListCidadaoCidadeSexoQtde
+    
+    public int getCidadaoSexoQtdeMax(){
+        return this.getCidadaoRepository().getCidadaoSexoQtdeMax();
+    }// fim do método getCidadaoSexoQtdeMax
     
     public CidadaoRepository getCidadaoRepository() {
         return cidadaoRepository;

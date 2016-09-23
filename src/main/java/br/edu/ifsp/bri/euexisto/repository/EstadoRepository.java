@@ -84,11 +84,17 @@ public class EstadoRepository implements Serializable {
         List<EstadoQtde> listaEstado = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
-            Query query = entityManager.createQuery("select new EstadoQtde(e.uf, e.nome, count(e.id) as qtde) " +
-                                                    "from   Estado e, Cidade c "     +
-                                                    "where  e = c.estado "     +
-                                                    "group  by e.uf, e.nome "        +
-                                                    "order  by e.uf ", 
+//            Query query = entityManager.createQuery("select new EstadoQtde(e.uf, e.nome, count(e.id) as qtde) " +
+//                                                    "from   Estado e, Cidade c "     +
+//                                                    "where  e = c.estado "     +
+//                                                    "group  by e.uf, e.nome "        +
+//                                                    "order  by e.uf ", 
+//                                                    EstadoQtde.class);
+
+            Query query = entityManager.createQuery("select new EstadoQtde(c.estado.uf, c.estado.nome, count(c.id) as qtde) " +
+                                                    "from   Cidade c "     +
+                                                    "group  by c.estado.uf, c.estado.nome "        +
+                                                    "order  by c.estado.uf ", 
                                                     EstadoQtde.class);
             listaEstado = query.getResultList();
         } catch (Exception e){

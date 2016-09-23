@@ -6,6 +6,7 @@
 package br.edu.ifsp.bri.euexisto.repository;
 
 import br.edu.ifsp.bri.euexisto.domain.Cidadao;
+import br.edu.ifsp.bri.euexisto.domain.CidadaoSexoQtde;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -114,6 +115,124 @@ public class CidadaoRepository implements Serializable {
         return listaCidadao;
     }// fim do método list
         
+    public List<CidadaoSexoQtde> listCidadaoEstadoSexoQtde(){
+        List<CidadaoSexoQtde> listaCidadaoSexoQtde = new ArrayList<>();
+        EntityManager entityManager = JPAConnection.getEntityManager();
+        try {
+            Query query = entityManager.createNativeQuery("select valor as valor, "                                    +
+                                                    "       sum(qtdeFem)  as qtdeFem, "                    +
+                                                    "       sum(qtdeMasc) as qtdeMasc "                    +
+                                                    "from ("                                               +
+                                                    "select Estado.uf as valor, "                                   +
+                                                    "       count(Estado.id) as qtdeFem, "                 +
+                                                    "       0 as qtdeMasc "                                +
+                                                    "from   Estado, Cidade, Cep, Endereco, Cidadao "       +
+                                                    "where  Estado.id    = Cidade.idEstado "               +
+                                                    "and    Cidade.id    = Cep.idCidade "                  +
+                                                    "and    Cep.id       = Endereco.idCep "                +
+                                                    "and    Endereco.id  = Cidadao.idEndereco "            +
+                                                    "and    Cidadao.sexo = 'F' "                           +
+                                                    "group  by Estado.uf "                                 +
+                                                    "union "                                               +
+                                                    "select Estado.uf as valor, "                                   +
+                                                    "       0 as qtdeFem, "                                +
+                                                    "       count(Estado.id) as qtdeMasc "                 +
+                                                    "from   Estado, Cidade, Cep, Endereco, Cidadao "       +
+                                                    "where  Estado.id    = Cidade.idEstado "               +
+                                                    "and    Cidade.id    = Cep.idCidade "                  +
+                                                    "and    Cep.id       = Endereco.idCep "                +
+                                                    "and    Endereco.id  = Cidadao.idEndereco "            +
+                                                    "and    Cidadao.sexo = 'M' "                           +
+                                                    "group  by Estado.uf "                                 +
+                                                    ")tmp "                                                +
+                                                    "group  by valor "                                     +
+                                                    "order  by valor ", 
+                                                    CidadaoSexoQtde.class);
+
+            listaCidadaoSexoQtde = query.getResultList();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        entityManager.close();
+        return listaCidadaoSexoQtde;
+    }// fim do método listCidadaoEstadoSexoQtde
+               
+    public List<CidadaoSexoQtde> listCidadaoCidadeSexoQtde(int idEstado){
+        List<CidadaoSexoQtde> listaCidadaoSexoQtde = new ArrayList<>();
+        EntityManager entityManager = JPAConnection.getEntityManager();
+        try {
+            Query query = entityManager.createNativeQuery("select valor as valor, "                                    +
+                                                    "       sum(qtdeFem)  as qtdeFem, "                    +
+                                                    "       sum(qtdeMasc) as qtdeMasc "                    +
+                                                    "from ("                                               +
+                                                    "select Cidade.nome as valor, "                                   +
+                                                    "       count(Cidade.id) as qtdeFem, "                 +
+                                                    "       0 as qtdeMasc "                                +
+                                                    "from   Cidadao, Endereco, Cep, Cidade "               +
+                                                    "where  Cidadao.idEndereco = Endereco.id "             +
+                                                    "and    Cidadao.sexo       = 'F' "                     +
+                                                    "and    Endereco.idCep     = Cep.id "                  +
+                                                    "and    Cep.idCidade       = Cidade.id "               +
+                                                    "and    Cidade.idEstado    = " + idEstado              +
+                                                    "group  by Cidade.nome "                               +
+                                                    "union "                                               +
+                                                    "select Cidade.nome as valor, "                        +
+                                                    "       0 as qtdeFem, "                                +
+                                                    "       count(Cidade.id) as qtdeMasc "                 +
+                                                    "from   Cidadao, Endereco, Cep, Cidade "               +
+                                                    "where  Cidadao.idEndereco = Endereco.id "             +
+                                                    "and    Cidadao.sexo       = 'M' "                     +
+                                                    "and    Endereco.idCep     = Cep.id "                  +
+                                                    "and    Cep.idCidade       = Cidade.id "               +
+                                                    "and    Cidade.idEstado    = " + idEstado              +
+                                                    "group  by Cidade.nome "                                 +
+                                                    ")tmp "                                                +
+                                                    "group  by valor "                                     +
+                                                    "order  by valor ", 
+                                                    CidadaoSexoQtde.class);
+
+            listaCidadaoSexoQtde = query.getResultList();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        entityManager.close();
+        return listaCidadaoSexoQtde;
+    }// fim do método listCidadaoCidadeSexoQtde
+    
+    public int getCidadaoSexoQtdeMax(){
+        int qtdeMax = 0;
+        EntityManager entityManager = JPAConnection.getEntityManager();
+        try {
+            Query query = entityManager.createNativeQuery("select max(tmp.qtde) as qtdeMax "                  +
+                                                    "from ("                                               +
+                                                    "select Estado.uf, "                                   +
+                                                    "       count(Estado.id) as qtde "                     +
+                                                    "from   Estado, Cidade, Cep, Endereco, Cidadao "       +
+                                                    "where  Estado.id    = Cidade.idEstado "               +
+                                                    "and    Cidade.id    = Cep.idCidade "                  +
+                                                    "and    Cep.id       = Endereco.idCep "                +
+                                                    "and    Endereco.id  = Cidadao.idEndereco "            +
+                                                    "and    Cidadao.sexo = 'F' "                           +
+                                                    "group  by Estado.uf "                                 +
+                                                    "union "                                               +
+                                                    "select Estado.uf, "                                   +
+                                                    "       count(Estado.id) as qtde "                     +
+                                                    "from   Estado, Cidade, Cep, Endereco, Cidadao "       +
+                                                    "where  Estado.id    = Cidade.idEstado "               +
+                                                    "and    Cidade.id    = Cep.idCidade "                  +
+                                                    "and    Cep.id       = Endereco.idCep "                +
+                                                    "and    Endereco.id  = Cidadao.idEndereco "            +
+                                                    "and    Cidadao.sexo = 'M' "                           +
+                                                    "group  by Estado.uf "                                 +
+                                                    ")tmp ");
+
+            qtdeMax = Integer.parseInt(query.getSingleResult().toString());
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        entityManager.close();
+        return qtdeMax;
+    }// fim do método listCidadaoEstadoSexoQtde
     
     // Verificar se o cidadao que está sendo incluído/alterado ja existe
     // 

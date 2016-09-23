@@ -5,6 +5,7 @@
  */
 package br.edu.ifsp.bri.euexisto.domain;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -26,7 +27,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "FAIXAETARIA")
 @SequenceGenerator(name = "FAIXAETARIA_SEQ", sequenceName = "FAIXAETARIA_SEQ",allocationSize = 1 ) 
-public class FaixaEtaria {
+public class FaixaEtaria implements Serializable {
     
     private int    id;
     private String descricao;

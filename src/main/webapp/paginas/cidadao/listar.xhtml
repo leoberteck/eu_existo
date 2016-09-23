@@ -9,7 +9,8 @@ and open the template in the editor.
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui" >
     <head>
         <title></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -24,8 +25,9 @@ and open the template in the editor.
             <ui:define name="content">
                 <br></br><br></br>
                 <h:form>
+                    
                     <b:panel title="Cidadão" look="primary">
-                     
+                        
                         <b:commandButton value="Incluir" action="#{cidadaoController.doAdd()}"></b:commandButton>
                         <br></br><br></br>
                        

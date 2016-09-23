@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui" >
+    <head>
+        <title></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body>
+       
+        <ui:composition template="/WEB-INF/templates/template.xhtml">
+            <ui:define name="titulo">
+                Estatística - População por Estado e Sexo
+            </ui:define>
+            <ui:define name="content">
+                <br></br><br></br>
+                <h:form>
+                    
+                    <h:panelGrid columns="2" columnClasses="left,right" style="width:100%">
+                        <p:chart type="bar" model="#{chartViewCidadaoEstadoSexo.animatedModelEstado}" style="width:400px;" />
+                    </h:panelGrid>
+                    
+                    <b:panel title="População por Estado" look="primary">
+                        
+                        <b:dataTable id="cidadaoEstadoQtdeSexoData" value="#{chartViewCidadaoEstadoSexo.listaCidadaoEstadoSexoQtde}" 
+                                         var="item" styleClass="table table-striped" >
+                            <b:column>
+                                <f:facet name="header">
+                                    <h:outputText value="UF"/>
+                                </f:facet> 
+                                <h:outputText value="#{item.valor}"/>
+                            </b:column>
+                           
+                            <b:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Feminino"/>
+                                </f:facet> 
+                                <h:outputText value="#{item.qtdeFem}"/>
+                            </b:column>
+                            <b:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Masculino"/>
+                                </f:facet> 
+                                <h:outputText value="#{item.qtdeMasc}"/>
+                            </b:column>
+                            <b:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Total"/>
+                                </f:facet> 
+                                <h:outputText value="#{item.qtdeFem+item.qtdeMasc}"/>
+                            </b:column>
+                        </b:dataTable> 
+ 
+                    </b:panel>
+                </h:form>             
+            </ui:define>    
+        </ui:composition>
+        
+    </body>
+
+</html>
