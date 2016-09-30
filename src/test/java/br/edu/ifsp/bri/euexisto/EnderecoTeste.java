@@ -32,6 +32,24 @@ public class EnderecoTeste {
         for (int i=0; i<listaEndereco.size();i++) {
             System.out.println(listaEndereco.get(i).toString());
         }
+        
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        EnderecoComposite enderecoComposite = new EnderecoComposite();
+        enderecoComposite.setComplemento("");
+        enderecoComposite.setNomeBairro("Jardim Sumaré");
+        enderecoComposite.setNomeCidade("Araçatuba");
+        enderecoComposite.setNomeEstado("São Paulo");
+        enderecoComposite.setNomeRua("Minas Gerais");
+        enderecoComposite.setNumero("995");
+        enderecoComposite.setNumeroCep("16.015-303");
+        enderecoComposite.setNumeroFim(0);
+        enderecoComposite.setNumeroIni(0);
+        enderecoComposite.setUf("SP");
+        
+        Endereco endereco = EnderecoFacade.get(enderecoComposite);
+        System.out.println(listaEndereco.size());
 
     }// fim do método main
     

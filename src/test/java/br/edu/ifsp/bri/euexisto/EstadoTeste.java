@@ -8,6 +8,7 @@ package br.edu.ifsp.bri.euexisto;
 import br.edu.ifsp.bri.euexisto.domain.Estado;
 import br.edu.ifsp.bri.euexisto.domain.EstadoQtde;
 import br.edu.ifsp.bri.euexisto.service.EstadoService;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -81,6 +82,9 @@ public class EstadoTeste {
             System.out.println(estadoQtde.getSigla() + " " + estadoQtde.getNome() + " " + estadoQtde.getQtde());
 */
         }
+        
+        listaEstado = estadoService.list("SP", "S");
+        System.out.println("Estado " + listaEstado.size() + listaEstado.toString());
     }
     
 }

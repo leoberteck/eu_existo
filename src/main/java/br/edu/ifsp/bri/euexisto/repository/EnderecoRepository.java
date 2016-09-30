@@ -81,7 +81,7 @@ public class EnderecoRepository implements Serializable {
         return listaEndereco;
     }// fim do método list    
     
-    // Buscar o endereco pelo cep e numero
+    // Buscar o endereco pelo id do cep e numero da residência
     public List<Endereco> list(int idCep, String numero){
         String sql = "SELECT tp FROM Endereco tp "
                    + "where  idCep  = "  + idCep         + " "
@@ -98,7 +98,25 @@ public class EnderecoRepository implements Serializable {
         entityManager.close();
         return listaEndereco;
     }// fim do método list
+    
+    // Buscar o endereco pelo numero do cep e numero da residência
+    public List<Endereco> list(String numeroCep, String numero){
+        String sql = "SELECT tp FROM Endereco tp, Cep cp "
+                   + "where  tp.cep        = cp " 
+                   + "and    tp.numero     = '"    + numero.trim()    + "' "
+                   + "and    cp.numeroCep  = '"    + numeroCep.trim() + "' ";
         
+        List<Endereco> listaEndereco = new ArrayList<>();
+        EntityManager entityManager = JPAConnection.getEntityManager();
+        try {       
+            Query query   = entityManager.createQuery(sql);
+            listaEndereco = query.getResultList();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        entityManager.close();
+        return listaEndereco;
+    }// fim do método list        
     
     // Buscar o endereco pelo cep, rua e numero
     public List<Endereco> list(int idCep, int idRua, String numero){
@@ -119,6 +137,27 @@ public class EnderecoRepository implements Serializable {
         return listaEndereco;
     }// fim do método list
     
+        
+    // Buscar o endereco pelo número do cep, nome da rua e numero da residência
+    public List<Endereco> list(String numeroCep, String nomeRua, String numero){
+        String sql = "SELECT tp FROM Endereco tp, Cep cp, Rua r "
+                   + "where  tp.cep        = cp " 
+                   + "and    tp.rua        = r "
+                   + "and    tp.numero     = '" + numero.trim()    + "' "
+                   + "and    cp.numeroCep  = '" + numeroCep.trim()   + "' "
+                   + "and    upper(r.nome) = '" + nomeRua.trim().toUpperCase() + "' ";
+        
+        List<Endereco> listaEndereco = new ArrayList<>();
+        EntityManager entityManager = JPAConnection.getEntityManager();
+        try {       
+            Query query   = entityManager.createQuery(sql);
+            listaEndereco = query.getResultList();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        entityManager.close();
+        return listaEndereco;
+    }// fim do método list
     
     // Verificar se o endereco que está sendo incluído ja existe
     // 

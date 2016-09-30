@@ -8,10 +8,8 @@ package br.edu.ifsp.bri.euexisto.facade;
 import br.edu.ifsp.bri.euexisto.composite.CidadeComposite;
 import br.edu.ifsp.bri.euexisto.composite.FaixaEtariaComposite;
 import br.edu.ifsp.bri.euexisto.domain.Cidade;
-import br.edu.ifsp.bri.euexisto.domain.Estado;
 import br.edu.ifsp.bri.euexisto.domain.FaixaEtaria;
 import br.edu.ifsp.bri.euexisto.service.CidadeService;
-import br.edu.ifsp.bri.euexisto.service.EstadoService;
 import br.edu.ifsp.bri.euexisto.service.FaixaEtariaService;
 import br.edu.ifsp.bri.euexisto.facade.CidadeFacade;
 import java.util.ArrayList;
@@ -22,26 +20,35 @@ import java.util.List;
  * @author gahsabio
  */
 public class FaixaEtariaFacade {
+
+    private static FaixaEtariaService faixaEtariaService = new FaixaEtariaService();
     
-    public static void add(FaixaEtariaComposite faixaEtariaComposite) {
+    public static FaixaEtaria get(FaixaEtariaComposite faixaEtariaComposite){
+        // Obter a Cidade
+        CidadeComposite cidadeComposite = new CidadeComposite();
+        cidadeComposite.setNomeCidade(faixaEtariaComposite.getNomeCidade());
+        cidadeComposite.setNomeEstado(faixaEtariaComposite.getNomeEstado());
+        cidadeComposite.setUf(faixaEtariaComposite.getUf());
+        Cidade          cidade          = CidadeFacade.get(cidadeComposite);
+
+        FaixaEtaria       faixaEtaria      = new FaixaEtaria();
+        List<FaixaEtaria> listaFaixaEtaria = new ArrayList<FaixaEtaria>();
+        
+        // Localizar a faixa Etária para a cidade
+        // Se não existir, cadastrar
+        listaFaixaEtaria = faixaEtariaService.list(faixaEtariaComposite.getDescricao(), cidade.getId());
+        if   (listaFaixaEtaria.size()==0) {
+             add(faixaEtariaComposite, cidade);
+             listaFaixaEtaria = faixaEtariaService.list(faixaEtariaComposite.getDescricao(), cidade.getId());
+        }
+        
+        faixaEtaria = (FaixaEtaria) listaFaixaEtaria.get(0);
+        
+        return faixaEtaria;
+    }// fim do método get
+        
+    public static void add(FaixaEtariaComposite faixaEtariaComposite, Cidade cidade) {
         FaixaEtaria        faixaEtaria        = new FaixaEtaria();
-        FaixaEtariaService faixaEtariaService = new FaixaEtariaService();
-        
-        EstadoService      estadoService      = new EstadoService();
-        Estado             estado             = new Estado();
-        List<Estado>       listaEstado        = new ArrayList<Estado>();
-
-        CidadeService      cidadeService      = new CidadeService();
-        Cidade             cidade             = new Cidade();
-        List<Cidade>       listaCidade        = new ArrayList<Cidade>();
-
-        CidadeComposite    cidadeComposite    = new CidadeComposite();
-        CidadeFacade.add(cidadeComposite);
-        
-        listaEstado = estadoService.list(faixaEtariaComposite.getUf(), "S");
-        estado      = (Estado) listaEstado.get(0);
-        listaCidade = cidadeService.list(faixaEtariaComposite.getNomeCidade(), estado.getId());
-        cidade      = (Cidade) listaCidade.get(0);
         
         faixaEtaria.setDescricao(faixaEtariaComposite.getDescricao());
         faixaEtaria.setIdadeIni(faixaEtariaComposite.getIdadeIni());

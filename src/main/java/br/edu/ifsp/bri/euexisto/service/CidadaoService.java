@@ -86,10 +86,21 @@ public class CidadaoService {
         return this.getCidadaoRepository().list();
     }// fim do método list
         
+    // Buscar os cidadão que residem em uma cidade, pelo idCidade
+    // ou
+    // Buscar os cidadão que residem em uma cidade, pelo idEndereco
+    // tipoBusca
+    // C --> por cidade,
+    // E --> por endereco
     public List<Cidadao> list(int valor, String tipoBusca){
         return this.getCidadaoRepository().list(valor, tipoBusca);
     }// fim do método list
     
+    // Buscar o cidadao pelo email ou pelo cpf
+    // Valor é o conteúdo a ser pesquisado: email ou cpf
+    // tipoBusca
+    // E --> busca pelo email
+    // C --> busca pelo cpf 
     public List<Cidadao> list(String valor, String tipoBusca){
         return this.getCidadaoRepository().list(valor, tipoBusca);
     }// fim do método list

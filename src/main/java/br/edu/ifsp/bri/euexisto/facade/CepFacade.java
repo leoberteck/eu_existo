@@ -26,70 +26,48 @@ import java.util.List;
  */
 public class CepFacade {
 
-    public static void add(CepComposite cepComposite){
-        Cep                cep                = new Cep();
-        Estado             estado             = new Estado();
-        Cidade             cidade             = new Cidade();
-        Bairro             bairro             = new Bairro();
-        Rua                rua                = new Rua();
+    private static CepService cepService = new CepService();
+    
+    public static Cep get(CepComposite cepComposite){
+        Cep       cep      = new Cep();
+        List<Cep> listaCep = new ArrayList<Cep>();
         
-        EstadoService      estadoService      = new EstadoService();
-        CidadeService      cidadeService      = new CidadeService();
-        CepService         cepService         = new CepService();
-        BairroService      bairroService      = new BairroService();
-        RuaService         ruaService         = new RuaService();
+        // Localizar o cep
+        // Se não existir, cadastrar
+        listaCep = cepService.list(cepComposite.getNumeroCep());
+        if   (listaCep.size()==0) {
+             add(cepComposite);
+            listaCep = cepService.list(cepComposite.getNumeroCep());
+        }
+        
+        cep      = (Cep) listaCep.get(0);
+        
+        return cep;
+    }// fim do método get
+    
+    
+    public static void add (CepComposite cepComposite) {
+        // Obter a cidade
+        CidadeComposite cidadeComposite = new CidadeComposite();
+        cidadeComposite.setNomeCidade(cepComposite.getNomeCidade());
+        cidadeComposite.setNomeEstado(cepComposite.getNomeEstado());
+        cidadeComposite.setUf(cepComposite.getUf());
+        Cidade cidade = CidadeFacade.get(cidadeComposite);
+        
+        // Obter a rua
+        Rua    rua    = RuaFacade.get(cepComposite.getNomeRua());
+        
+        // Obter o bairro
+        Bairro bairro = BairroFacade.get(cepComposite.getNomeBairro());
 
-        List<Estado>       listaEstado        = new ArrayList<Estado>();
-        List<Cidade>       listaCidade        = new ArrayList<Cidade>();
-        List<Bairro>       listaBairro        = new ArrayList<Bairro>();
-        List<Rua>          listaRua           = new ArrayList<Rua>();
-        
-        CidadeComposite    cidadeComposite    = new CidadeComposite(cepComposite.getNomeCidade(), 
-                                                                    cepComposite.getNomeEstado(),
-                                                                    cepComposite.getUf());
-        CidadeFacade.add(cidadeComposite);
-        
-        listaEstado = estadoService.list(cepComposite.getUf(), "S");
-        estado      = (Estado) listaEstado.get(0);
-               
-        listaCidade = cidadeService.list(cepComposite.getNomeCidade(), estado.getId());
-        cidade      = (Cidade) listaCidade.get(0);
-        
-        // Localizar o bairro
-        // Se não existir, cadastrar
-        if   (!cepComposite.getNomeBairro().equals("")) {
-             listaBairro = bairroService.list(cepComposite.getNomeBairro());
-             if   (listaBairro.size()==0) {
-                  bairro.setNome(cepComposite.getNomeBairro());
-                  bairroService.add(bairro);
-                  listaBairro = bairroService.list(cepComposite.getNomeBairro());
-                  bairro      = new Bairro();
-                  bairro      = (Bairro) listaBairro.get(0);
-             }
-             else bairro      = (Bairro) listaBairro.get(0);
-        }
-        
-        // Localizar a Rua
-        // Se não existir, cadastrar
-        if   (!cepComposite.getNomeRua().equals("")) {
-             listaRua = ruaService.list(cepComposite.getNomeRua());
-             if   (listaRua.size()==0) {
-                  rua.setNome(cepComposite.getNomeRua());
-                  ruaService.add(rua);
-                  listaRua = ruaService.list(cepComposite.getNomeRua());
-                  rua      = new Rua();
-                  rua      = (Rua) listaRua.get(0);
-             }
-             else rua      = (Rua) listaRua.get(0);
-        }
-        
+        Cep cep = new Cep();
+        cep.setRua(rua);
+        cep.setBairro(bairro);
+        cep.setCidade(cidade);
         cep.setNumeroCep(cepComposite.getNumeroCep());
         cep.setNumeroIni(cepComposite.getNumeroIni());
         cep.setNumeroFim(cepComposite.getNumeroFim());
-        cep.setCidade(cidade);
-        cep.setBairro(bairro);
-        cep.setRua(rua);
         cepService.add(cep);
     }// fim do método add
-    
+
 }// fim da classe CepFacade

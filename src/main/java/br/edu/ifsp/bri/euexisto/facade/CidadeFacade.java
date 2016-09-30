@@ -6,10 +6,10 @@
 package br.edu.ifsp.bri.euexisto.facade;
 
 import br.edu.ifsp.bri.euexisto.composite.CidadeComposite;
+import br.edu.ifsp.bri.euexisto.composite.EstadoComposite;
 import br.edu.ifsp.bri.euexisto.domain.Cidade;
 import br.edu.ifsp.bri.euexisto.domain.Estado;
 import br.edu.ifsp.bri.euexisto.service.CidadeService;
-import br.edu.ifsp.bri.euexisto.service.EstadoService;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,27 +19,34 @@ import java.util.List;
  */
 public class CidadeFacade {
     
-    public static void add (CidadeComposite cidadeComposite) {
-        Cidade        cidade        = new Cidade();
-        CidadeService cidadeService = new CidadeService();
+    private static CidadeService cidadeService = new CidadeService();
+    
+    public static Cidade get(CidadeComposite cidadeComposite){
+        // Obter o estado
+        EstadoComposite estadoComposite = new EstadoComposite();
+        estadoComposite.setNome(cidadeComposite.getNomeEstado());
+        estadoComposite.setUf(cidadeComposite.getUf());
+        Estado          estado          = EstadoFacade.get(estadoComposite);
         
-        Estado        estado        = new Estado();
-        EstadoService estadoService = new EstadoService();
-        List<Estado>  listaEstado   = new ArrayList<Estado>();
+        Cidade          cidade          = new Cidade();
+        List<Cidade>    listaCidade     = new ArrayList<Cidade>();
         
-        // Localizar o estado
+        // Localizar a cidade
         // Se não existir, cadastrar
-        listaEstado = estadoService.list(cidadeComposite.getUf(), "S");
-        if   (listaEstado.size()==0) {
-             estado.setNome(cidadeComposite.getNomeEstado());
-             estado.setUf(cidadeComposite.getUf());
-             estadoService.add(estado);
-             listaEstado = estadoService.list(cidadeComposite.getUf(), "S");
-             estado      = new Estado();
-             estado      = (Estado) listaEstado.get(0);
+        listaCidade = cidadeService.list(cidadeComposite.getNomeCidade(), estado.getId());
+        if   (listaCidade.size()==0) {
+             add(cidadeComposite, estado);
+             listaCidade = cidadeService.list(cidadeComposite.getNomeCidade(), estado.getId());
         }
-        else estado      = (Estado) listaEstado.get(0);
-
+        
+        cidade      = (Cidade) listaCidade.get(0);
+        
+        return cidade;
+    }// fim do método get
+    
+    
+    public static void add (CidadeComposite cidadeComposite, Estado estado) {
+        Cidade cidade = new Cidade();
         cidade.setNome(cidadeComposite.getNomeCidade());
         cidade.setEstado(estado);
         cidadeService.add(cidade);

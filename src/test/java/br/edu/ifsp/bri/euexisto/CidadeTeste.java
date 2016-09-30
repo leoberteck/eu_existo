@@ -13,7 +13,6 @@ import br.edu.ifsp.bri.euexisto.service.CidadeService;
 import br.edu.ifsp.bri.euexisto.service.EstadoService;
 import java.util.ArrayList;
 import java.util.List;
-import oracle.net.aso.i;
 
 /**
  *
@@ -22,23 +21,24 @@ import oracle.net.aso.i;
 public class CidadeTeste {
     
     public static void main (String args[]) {        
+        Cidade          cidade          = new Cidade();
         CidadeComposite cidadeComposite = new CidadeComposite();
+        
         cidadeComposite.setNomeCidade("Araçatuba");
         cidadeComposite.setNomeEstado("Sao Paulo");
         cidadeComposite.setUf("SP");
-        CidadeFacade.add(cidadeComposite);
+        cidade = CidadeFacade.get(cidadeComposite);
         
         cidadeComposite = new CidadeComposite("Birigui","Sao Paulo","SP");
-        CidadeFacade.add(cidadeComposite);
+        cidade = CidadeFacade.get(cidadeComposite);
 
         cidadeComposite = new CidadeComposite("Rio de Janeiro","Rio de Janeiro","RJ");
-        CidadeFacade.add(cidadeComposite);
+        cidade = CidadeFacade.get(cidadeComposite);
         
         EstadoService estadoService = new EstadoService();
         List<Estado>  listaEstado   = estadoService.list(cidadeComposite.getUf(), "S");
         Estado        estado        = (Estado) listaEstado.get(0);
               
-        Cidade        cidade        = new Cidade();
         CidadeService cidadeService = new CidadeService();
 
         List<Cidade> listaCidade = cidadeService.list(estado.getId());

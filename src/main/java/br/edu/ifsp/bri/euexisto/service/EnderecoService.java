@@ -98,8 +98,16 @@ public class EnderecoService {
         return this.getEnderecoRepository().list(idCep, numero);
     }// fim do método list
     
+    public List<Endereco> list(String numeroCep, String numero){
+        return this.getEnderecoRepository().list(numeroCep, numero);
+    }// fim do método list
+    
     public List<Endereco> list(int idCep, int idRua, String numero){
         return this.getEnderecoRepository().list(idCep, idRua, numero);
+    }// fim do método list
+    
+    public List<Endereco> list(String numeroCep, String nomeRua, String numero){
+        return this.getEnderecoRepository().list(numeroCep, nomeRua, numero);
     }// fim do método list
     
     public EnderecoRepository getEnderecoRepository() {
