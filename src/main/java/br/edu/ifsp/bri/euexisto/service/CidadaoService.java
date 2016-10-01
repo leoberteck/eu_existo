@@ -8,8 +8,9 @@ package br.edu.ifsp.bri.euexisto.service;
 import br.edu.ifsp.bri.euexisto.domain.Cidadao;
 import br.edu.ifsp.bri.euexisto.domain.CidadaoSexoQtde;
 import br.edu.ifsp.bri.euexisto.repository.CidadaoRepository;
-import java.io.Serializable;
-import java.util.ArrayList;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 /**
@@ -30,13 +31,24 @@ public class CidadaoService {
     public void add(Cidadao cidadao) {
         //   na inclusão, id = 0
         if   (check(cidadao, 0))
-              this.getCidadaoRepository().add(cidadao);
+        {
+            String senha = this.convertStringToMd5(cidadao.getSenha());
+            cidadao.setSenha(senha);
+            this.getCidadaoRepository().add(cidadao); 
+             
+        }
+             
     }// fim do metodo add
     
     public void update(Cidadao cidadao){
         //   na alteração, passar o id do cidadao que está sendo alterado
         if   (check(cidadao, cidadao.getId()))
-              this.getCidadaoRepository().update(cidadao);
+        {
+            String senha = this.convertStringToMd5(cidadao.getSenha());
+            cidadao.setSenha(senha);
+            this.getCidadaoRepository().update(cidadao);   
+        }
+              
     }// fim do método update
     
     public void remove(Cidadao cidadao){
@@ -81,6 +93,28 @@ public class CidadaoService {
 
         return  cidadaoOk;
     }// fim do método check
+    
+    //Converter senha para MD5
+    private String convertStringToMd5(String valor) {
+        MessageDigest mDigest;
+        try {
+            mDigest = MessageDigest.getInstance("MD5");
+            byte[] valorMD5 = mDigest.digest(valor.getBytes("UTF-8"));
+            StringBuffer sb = new StringBuffer();
+            for (byte b : valorMD5) {
+                sb.append(Integer.toHexString((b & 0xFF) | 0x100).substring(1, 3));
+            }
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
     
     public List<Cidadao> list(){
         return this.getCidadaoRepository().list();
