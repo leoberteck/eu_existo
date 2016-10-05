@@ -10,7 +10,6 @@ import br.edu.ifsp.bri.euexisto.domain.Cidadao;
 import br.edu.ifsp.bri.euexisto.facade.CidadaoFacade;
 import br.edu.ifsp.bri.euexisto.service.CidadaoService;
 import java.util.Date;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -108,6 +107,5 @@ public class CidadaoTeste {
             cidadao = listaCidadao.get(0);
             System.out.println("Por cpf Helen " + cidadao.toString());
         }
-    }
-    
+    }   
 }
