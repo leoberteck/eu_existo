@@ -63,16 +63,42 @@ public class CepService {
     
     public boolean check(String cep, int idBairro, int idRua) {
         boolean cepOk = true;
-        
-        String ultima = cep.substring(7, 10);
-        
-        if     (ultima.equals("000")) {
-               if   ((idBairro != 0) || (idRua !=0))
-                    cepOk = false;
+        //Verifica se o cep possui 10 digitos (8 numeros e um ponto e um traco)
+        if(cep == null || cep.length() != 10){
+            cepOk = false;
         }
-        else   {
-               if   ((idBairro == 0) || (idRua ==0))
+        //Verifica se o cep sem ponto e sem traço contém 8 caracteres
+        if(cepOk){
+            String cepNumerico = cep.replace(".", "");
+            cepNumerico = cepNumerico.replace("-", "");
+            if(cepNumerico.length() != 8)
+            {
+                cepOk =false;
+            }
+        }
+        //Verifica se todos os caracteres do cep numérico são um números
+        if(cepOk){
+            String cepNumerico = cep.replace(".", "");
+            cepNumerico = cepNumerico.replace("-", "");
+            for(char num : cepNumerico.toCharArray()){
+                if(!Character.isDigit(num))
+                {
                     cepOk = false;
+                    break;
+                }
+            }
+        }
+        //Caso seja o cep único da cidade é obrigatório NÃO informar bairro e rua
+        if(cepOk){
+            String ultima = cep.substring(7, 10);
+            if(ultima.equals("000") && (idBairro != 0 || idRua !=0))
+            {
+                cepOk = false;
+            }
+        }
+        //Caso seja o cep de rua é obrigatório informar bairro e rua
+        if((idBairro == 0) || (idRua ==0) && cepOk){
+            cepOk = false;
         }
         return  cepOk;
     }
