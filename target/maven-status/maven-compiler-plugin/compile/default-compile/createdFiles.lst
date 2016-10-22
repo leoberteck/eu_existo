@@ -16,6 +16,7 @@ br\edu\ifsp\bri\euexisto\repository\FaixaEtariaRepository.class
 br\edu\ifsp\bri\euexisto\domain\TipoUser.class
 br\edu\ifsp\bri\euexisto\composite\EnderecoComposite.class
 br\edu\ifsp\bri\euexisto\composite\FaixaEtariaComposite.class
+br\edu\ifsp\bri\euexisto\util\StringUtil.class
 br\edu\ifsp\bri\euexisto\facade\RuaFacade.class
 br\edu\ifsp\bri\euexisto\controller\EstadoController.class
 br\edu\ifsp\bri\euexisto\domain\Usuario.class
