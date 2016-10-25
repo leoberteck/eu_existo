@@ -10,7 +10,8 @@ and open the template in the editor.
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui" >
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
     <head>
         <title></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -86,7 +87,8 @@ and open the template in the editor.
                                 <f:facet name="header">
                                     <h:outputText value="Sexo"/>
                                 </f:facet> 
-                                <h:outputText value="#{item.sexo}"/>
+                                <h:outputText  value="#{item.sexo == 'F' ? 'Feminino' : 'Masculino'}"/>
+                                
                             </h:column> 
                             <h:column>
                                 <f:facet name="header">
